@@ -1,18 +1,23 @@
 var urls = [
-    'http://mysites.myfamilymobile.cms.stage.3cinteractive.com/',
     'http://mysites.safelink.cms.stage.3cinteractive.com/',
 ];
 
 pjs.config({
     allowRepeatUrls: true,
+    log: 'stdout',
+    format: 'json',
+    writer: 'file',
+    outFile: './data.json'
 });
 
 pjs.addSuite({
     url: urls,
+    moreUrls: function() {
+        return _pjs.getAnchorUrls('a');
+    },
     scrapers: [
       function() {
         var urls = [
-            'http://mysites.myfamilymobile.cms.stage.3cinteractive.com/',
             'http://mysites.safelink.cms.stage.3cinteractive.com/',
         ];
 
@@ -28,10 +33,7 @@ pjs.addSuite({
           }
         });
 
-        return {
-          page: urls[_pjs.state.counter],
-          items: items,
-        };
+        return items;
       }
     ]
 });
