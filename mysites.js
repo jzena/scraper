@@ -7,9 +7,9 @@ pjs.config({
 });
 
 pjs.addSuite({
-    url: 'http://mysites.safelink.cms.stage.3cinteractive.com/',
+    url: 'http://mysites.simplemobile.cms.stage.3cinteractive.com/',
     moreUrls: function() {
-        return _pjs.getAnchorUrls('li a, p a, nav a');
+        return _pjs.getAnchorUrls('li a, p a, nav a', false);
     },
     scrapers: [
       function() {
@@ -17,7 +17,7 @@ pjs.addSuite({
 
         var items = [];
         $('a').each(function() {
-          if ($(this).attr('href') && $(this).attr('href').length && ($(this).attr('href').indexOf('/tfredir') > -1 || $(this).attr('href').indexOf('/redir/') > -1)) {
+          if ($(this).attr('href') && $(this).attr('href').length && $(this).attr('href').indexOf('/redir/') > -1) {
             var text = $(this).text().trim().length ? $(this).text().trim() : "This link doesn't have a text, maybe its child is an image";
             var link = $(this).attr('href');
             items.push({
@@ -27,7 +27,11 @@ pjs.addSuite({
           }
         });
 
-        return items;
+        return {
+          urlFound: window.location.href,
+          items: items,
+          total: items.length,
+        };
       }
     ]
 });
