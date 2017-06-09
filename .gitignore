@@ -2,3 +2,4 @@
 *.pyo
 tests/
 data.json
+node_modules/
