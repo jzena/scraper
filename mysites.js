@@ -7,10 +7,11 @@ pjs.config({
 });
 
 pjs.addSuite({
-    url: 'http://mysites.simplemobile.cms.stage.3cinteractive.com/',
+    url: 'http://mysites.tracfone.com/',
     moreUrls: function() {
         return _pjs.getAnchorUrls('li a, p a, nav a', false);
     },
+    async: true,
     scrapers: [
       function() {
         _pjs.state.counter = _pjs.state.counter + 1 || 0;
