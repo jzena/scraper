@@ -1,36 +1,45 @@
 var prettyjson = require('prettyjson');
 var links = [];
 var casper = require('casper').create({
-  logLevel: 'verbose',
-  debug: true
+  verbose: true,
+  logLevel: "debug",
+  clientScripts:  [
+    'client/jquery.js',
+  ],
+  pageSettings: {
+    // iPhone
+    userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3)",
+    // Lumia
+    //userAgent: 'Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 820)',
+  }
 });
 
 function getLinks() {
-  var links = document.querySelectorAll('a');
-  return Array.prototype.map.call(links, function(e) {
-    var link = e.getAttribute('href');
+  //var links = $('a[href^="http"]');
+  var links = $('a[href*="/redir/"]');
+  return Array.prototype.map.call(links, function (e) {
+    var link = $(e).attr('href');
+    var text = $(e).text().trim().length > 0 ? $(e).text().trim() : $(e).html();
     return {
       link: link,
-      text: e.textContent.trim(),
+      text: text,
     };
   });
 }
 
-casper.start('http://mysites.tracfone.com/');
+casper.start('http://mysites.tracfone.cms.stage.3cinteractive.com/');
+//casper.userAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X)');
 
 casper.waitFor(function check() {
-    return this.evaluate(function() {
-        return document.querySelectorAll('body a').length > 2;
-    });
+  return this.evaluate(function() {
+    return document.querySelectorAll('body a').length > 2;
+  });
 }, function then() {
-    links = this.evaluate(getLinks);
-})
-
-casper.then(function() {
-    links = links.concat(this.evaluate(getLinks));
+  links = this.evaluate(getLinks);
 });
 
-casper.run(function() {
-    //console.log(prettyjson.render(links));
-    this.echo(links.length + ' links found').exit();
+casper.run(function () {
+  console.log(prettyjson.render(links));
+  console.log(links.length);
+  casper.exit();
 });
