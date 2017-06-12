@@ -1,8 +1,8 @@
 Dependencies:
-- [PhantomJS](http://phantomjs.org/)
+- [CasperJS](http://casperjs.org/)
 - [Prettyjson](https://www.npmjs.com/package/prettyjson)
 
 Run:
 ```
-bin/pjscrape.sh mysites.js
+casperjs casperMe.js
 ```
