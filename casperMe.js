@@ -29,7 +29,7 @@ function getLinks() {
   });
 }
 
-casper.start('http://mysites.tracfone.cms.stage.3cinteractive.com/retailers');
+casper.start('http://mysites.tracfone.cms.stage.3cinteractive.com/other-social');
 
 casper.waitFor(function check() {
   return this.evaluate(function() {
