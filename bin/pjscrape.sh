@@ -1,3 +1,3 @@
 #!/bin/bash
 phantomjs $(dirname $0)/../pjscrape.js $*;
-prettyjson data.json;
+prettyjson --number=green data.json;
