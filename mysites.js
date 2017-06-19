@@ -17,7 +17,7 @@ pjs.addSuite({
 
         var items = [];
         $('a').each(function() {
-          if ($(this).attr('href') && $(this).attr('href').length && ($(this).attr('href').indexOf('/tfredir') > -1 || $(this).attr('href').indexOf('/redir/') > -1)) {
+          if ($(this).attr('href') && $(this).attr('href').length && ($(this).attr('href').indexOf('/redir/') > -1)) {
             var text = $(this).text().trim().length ? $(this).text().trim() : "This link doesn't have a text, maybe its child is an image";
             var link = $(this).attr('href');
             items.push({
